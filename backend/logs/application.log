@@ -3838,3 +3838,143 @@ java.lang.NullPointerException: null
 19/04/2022 23:07:40 INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
 19/04/2022 23:07:40 INFO  - HikariPool-1 - Shutdown initiated...
 19/04/2022 23:07:40 INFO  - HikariPool-1 - Shutdown completed.
+19/04/2022 23:13:42 INFO  - Starting BusinessApplication using Java 1.8.0_281 on DESKTOP-HENEIFB with PID 17280 (D:\laptrinhmang_cuoiky\backend\module-business\target\classes started by User in D:\laptrinhmang_cuoiky\backend)
+19/04/2022 23:13:42 INFO  - The following profiles are active: dev
+19/04/2022 23:13:47 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19/04/2022 23:13:47 INFO  - Finished Spring Data repository scanning in 148 ms. Found 14 JPA repository interfaces.
+19/04/2022 23:13:48 INFO  - Bean 'cacheConfig' of type [com.core.config.CacheConfig$$EnhancerBySpringCGLIB$$67c9e15a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19/04/2022 23:13:49 INFO  - Tomcat initialized with port(s): 19010 (http)
+19/04/2022 23:13:49 INFO  - Starting service [Tomcat]
+19/04/2022 23:13:49 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+19/04/2022 23:13:49 INFO  - Initializing Spring embedded WebApplicationContext
+19/04/2022 23:13:49 INFO  - Root WebApplicationContext: initialization completed in 6468 ms
+19/04/2022 23:13:49 WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19/04/2022 23:13:49 INFO  - HikariPool-1 - Starting...
+19/04/2022 23:13:50 INFO  - HikariPool-1 - Start completed.
+19/04/2022 23:13:50 INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+19/04/2022 23:13:50 INFO  - HHH000412: Hibernate ORM core version 5.4.32.Final
+19/04/2022 23:13:50 INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19/04/2022 23:13:50 INFO  - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19/04/2022 23:13:56 INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19/04/2022 23:13:56 INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:13:58 INFO  - readPublicKey: dev_public.key
+19/04/2022 23:14:03 INFO  - Exposing 1 endpoint(s) beneath base path '/actuator'
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/account-managers/test'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/actuator/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/csrf'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/my/docs'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/v2/api-docs/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/swagger.json'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/configuration/security'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/configuration/ui'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/swagger-resources/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/configuration/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/swagger-ui/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/swagger-ui.html'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/webjars/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/account-managers/login'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/account-managers/register'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/file/downloadFile/**'] with []
+19/04/2022 23:14:03 INFO  - Will secure Ant [pattern='/files/**'] with []
+19/04/2022 23:14:04 INFO  - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@601ebfa1, org.springframework.security.web.context.SecurityContextPersistenceFilter@30f19549, org.springframework.security.web.header.HeaderWriterFilter@4892206a, org.springframework.web.filter.CorsFilter@78e1625f, org.springframework.security.web.authentication.logout.LogoutFilter@4eb870be, com.business.authencation.JwtAuthenticationFilter@418b3215, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f9c3073, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70ef340b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@446e20c0, org.springframework.security.web.session.SessionManagementFilter@74d3c448, org.springframework.security.web.access.ExceptionTranslationFilter@4b0c144e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@754e3050]
+19/04/2022 23:14:06 INFO  - Tomcat started on port(s): 19010 (http) with context path '/business'
+19/04/2022 23:14:09 INFO  - Started BusinessApplication in 27.156 seconds (JVM running for 32.519)
+19/04/2022 23:14:09 INFO  - Account management already exsit.
+19/04/2022 23:14:10 INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19/04/2022 23:24:05 ERROR - errorHoanhtranh1 - GET 0:0:0:0:0:0:0:1:19010/business/comment/get/1 - Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.core.model.ResponseBody["body"]->java.util.ArrayList[0]->com.core.entity.Comment["post"]->com.core.entity.Post$HibernateProxy$0I6be8I1["hibernateLazyInitializer"])
+19/04/2022 23:28:18 INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:28:18 INFO  - HikariPool-1 - Shutdown initiated...
+19/04/2022 23:28:18 INFO  - HikariPool-1 - Shutdown completed.
+19/04/2022 23:28:31 INFO  - Starting BusinessApplication using Java 1.8.0_281 on DESKTOP-HENEIFB with PID 19196 (D:\laptrinhmang_cuoiky\backend\module-business\target\classes started by User in D:\laptrinhmang_cuoiky\backend)
+19/04/2022 23:28:31 INFO  - The following profiles are active: dev
+19/04/2022 23:28:33 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19/04/2022 23:28:33 INFO  - Finished Spring Data repository scanning in 101 ms. Found 14 JPA repository interfaces.
+19/04/2022 23:28:33 INFO  - Bean 'cacheConfig' of type [com.core.config.CacheConfig$$EnhancerBySpringCGLIB$$7579e0cf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19/04/2022 23:28:34 INFO  - Tomcat initialized with port(s): 19010 (http)
+19/04/2022 23:28:34 INFO  - Starting service [Tomcat]
+19/04/2022 23:28:34 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+19/04/2022 23:28:34 INFO  - Initializing Spring embedded WebApplicationContext
+19/04/2022 23:28:34 INFO  - Root WebApplicationContext: initialization completed in 3270 ms
+19/04/2022 23:28:34 WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19/04/2022 23:28:34 INFO  - HikariPool-1 - Starting...
+19/04/2022 23:28:34 INFO  - HikariPool-1 - Start completed.
+19/04/2022 23:28:34 INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+19/04/2022 23:28:34 INFO  - HHH000412: Hibernate ORM core version 5.4.32.Final
+19/04/2022 23:28:35 INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19/04/2022 23:28:35 INFO  - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19/04/2022 23:28:39 INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19/04/2022 23:28:39 INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:28:39 INFO  - readPublicKey: dev_public.key
+19/04/2022 23:28:40 INFO  - Exposing 1 endpoint(s) beneath base path '/actuator'
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/account-managers/test'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/actuator/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/csrf'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/my/docs'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/v2/api-docs/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/swagger.json'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/configuration/security'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/configuration/ui'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/swagger-resources/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/configuration/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/swagger-ui/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/swagger-ui.html'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/webjars/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/account-managers/login'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/account-managers/register'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/file/downloadFile/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure Ant [pattern='/files/**'] with []
+19/04/2022 23:28:40 INFO  - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5875480e, org.springframework.security.web.context.SecurityContextPersistenceFilter@21e860cd, org.springframework.security.web.header.HeaderWriterFilter@45e5212f, org.springframework.web.filter.CorsFilter@1cad885b, org.springframework.security.web.authentication.logout.LogoutFilter@3763c93b, com.business.authencation.JwtAuthenticationFilter@50f71f48, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3dbdc020, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47742aae, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38b88037, org.springframework.security.web.session.SessionManagementFilter@6e75a0a6, org.springframework.security.web.access.ExceptionTranslationFilter@618439c9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@41274a53]
+19/04/2022 23:28:41 INFO  - Tomcat started on port(s): 19010 (http) with context path '/business'
+19/04/2022 23:28:41 INFO  - Started BusinessApplication in 11.407 seconds (JVM running for 12.693)
+19/04/2022 23:28:41 INFO  - Account management already exsit.
+19/04/2022 23:28:42 INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19/04/2022 23:28:49 ERROR - errorHoanhtranh1 - GET 0:0:0:0:0:0:0:1:19010/business/comment/get/1 - Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.core.model.ResponseBody["body"]->java.util.ArrayList[0]->com.core.model.Post.CommentResponseDTO["user"]->com.core.entity.User$HibernateProxy$qmXbMDyz["hibernateLazyInitializer"])
+19/04/2022 23:32:28 INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:32:28 INFO  - HikariPool-1 - Shutdown initiated...
+19/04/2022 23:32:28 INFO  - HikariPool-1 - Shutdown completed.
+19/04/2022 23:32:36 INFO  - Starting BusinessApplication using Java 1.8.0_281 on DESKTOP-HENEIFB with PID 17672 (D:\laptrinhmang_cuoiky\backend\module-business\target\classes started by User in D:\laptrinhmang_cuoiky\backend)
+19/04/2022 23:32:36 INFO  - The following profiles are active: dev
+19/04/2022 23:32:38 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19/04/2022 23:32:38 INFO  - Finished Spring Data repository scanning in 98 ms. Found 14 JPA repository interfaces.
+19/04/2022 23:32:39 INFO  - Bean 'cacheConfig' of type [com.core.config.CacheConfig$$EnhancerBySpringCGLIB$$2d140133] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+19/04/2022 23:32:39 INFO  - Tomcat initialized with port(s): 19010 (http)
+19/04/2022 23:32:39 INFO  - Starting service [Tomcat]
+19/04/2022 23:32:39 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+19/04/2022 23:32:40 INFO  - Initializing Spring embedded WebApplicationContext
+19/04/2022 23:32:40 INFO  - Root WebApplicationContext: initialization completed in 3318 ms
+19/04/2022 23:32:40 WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+19/04/2022 23:32:40 INFO  - HikariPool-1 - Starting...
+19/04/2022 23:32:40 INFO  - HikariPool-1 - Start completed.
+19/04/2022 23:32:40 INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+19/04/2022 23:32:40 INFO  - HHH000412: Hibernate ORM core version 5.4.32.Final
+19/04/2022 23:32:40 INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+19/04/2022 23:32:41 INFO  - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19/04/2022 23:32:44 INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19/04/2022 23:32:44 INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:32:45 INFO  - readPublicKey: dev_public.key
+19/04/2022 23:32:45 WARN  - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'commentController': Unsatisfied dependency expressed through field 'commentService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'commentServiceImpl': Unsatisfied dependency expressed through field 'objectMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.business.mapper.ObjectMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+19/04/2022 23:32:45 INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
+19/04/2022 23:32:45 INFO  - HikariPool-1 - Shutdown initiated...
+19/04/2022 23:32:45 INFO  - HikariPool-1 - Shutdown completed.
+19/04/2022 23:32:45 INFO  - Stopping service [Tomcat]
+19/04/2022 23:32:45 INFO  - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+19/04/2022 23:32:46 ERROR - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field objectMapper in com.business.services.impl.CommentServiceImpl required a bean of type 'com.business.mapper.ObjectMapper' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.business.mapper.ObjectMapper' in your configuration.
+

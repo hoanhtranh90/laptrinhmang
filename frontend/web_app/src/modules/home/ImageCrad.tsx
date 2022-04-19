@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
-import { PostDetail } from '../../redux/api/apiTypes';
+import { CommentResponse, PostDetail } from '../../redux/api/apiTypes';
 import './assets/css/index.css';
 import { Avatar, Image, Card, Modal, Carousel, Typography, Badge, Divider, Input, Button } from 'antd';
 import { HeartFilled, HeartOutlined, MessageOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { useAddCommentMutation, useLazyGetListCommentQuery } from '../../redux/api/HomeApi';
 const { Meta } = Card;
 const ImageCard = (props: any) => {
     const [visible, setVisible] = useState(false);
@@ -11,6 +12,11 @@ const ImageCard = (props: any) => {
     const [errors, setErrors] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [checkHover, setCheckHover] = useState(false);
+
+    const [listComment, setListComment] = useState<CommentResponse[]>([]);
+    const [getComment] = useLazyGetListCommentQuery();
+    const [addComment] = useAddCommentMutation();
+
     //set type any
     const slider = useRef<any>(null);
 
@@ -23,7 +29,15 @@ const ImageCard = (props: any) => {
             }, 2000);
         } else {
             const newComment = { body: comment };
-            // submitComment(data.post.id, newComment);
+            addComment({content: comment, postId: props.data.id}).unwrap()
+            .then( res => {
+                console.log("res", res);
+                
+                setListComment([...listComment, res])
+            })
+            .catch(err => {
+
+            })
             setLoading(true);
             setTimeout(() => {
                 setComment("");
@@ -87,7 +101,11 @@ const ImageCard = (props: any) => {
         prevArrow: <SamplePrevArrow onClick={() => slider.current.next()} />
       }
     const showModal = () => {
-        // getComment(data.post.id);
+        getComment(props.data.id).unwrap()
+        .then((res) => {
+            console.log("res", res);
+            setListComment(res)
+        })
 
 
         // setVisible(true);
@@ -196,15 +214,15 @@ const ImageCard = (props: any) => {
                                 {errors && <span className="text-danger">{errors}</span>}
                             </div>
                         </div>
-                        {/* <div style={{ marginTop: "20px", height: "50vh", overflow: 'scroll' }}>
-                            {postDetail && postDetail.comment && postDetail.comment.map(cmt => {
+                        <div style={{ marginTop: "20px", height: "50vh", overflow: 'scroll' }}>
+                            {listComment && listComment.map(cmt => {
                                 return <Meta className="mt-1"
-                                    avatar={<Avatar style={{ backgroundColor: "#000" }}>{data.post.createdBy.charAt(0).toUpperCase()}</Avatar>}
-                                    title={cmt.userSummary.fullName}
+                                    avatar={<Avatar style={{ backgroundColor: "#000" }}>{cmt.user.fullName.charAt(0).toUpperCase()}</Avatar>}
+                                    title={cmt.user.fullName}
                                     description={cmt.body}
                                 />
                             })}
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </Modal>

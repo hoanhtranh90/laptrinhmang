@@ -89,7 +89,24 @@ export interface PostResponse {
 }
 //CommentResponse
 export interface CommentResponse {
-    
+    createdDate?: number,
+    modifiedDate?: number,
+    body: string,
+    user: UserDTO
+}
+//CommentRequest
+export interface CommentRequest {
+    content: string,
+    postId: number,
+}
+
+//userDTO
+export interface UserDTO {
+    userId: number,
+    phoneNumber?: string,
+    email?: string,
+    userName?: string,
+    fullName: string
 }
 export interface PostDetail {
     id: number,

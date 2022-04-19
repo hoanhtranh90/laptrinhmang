@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Config } from '../../config/constant';
-import { CommonListQuery, PostResponse, CommentResponse } from './apiTypes';
+import { CommonListQuery, PostResponse, CommentResponse, CommentRequest } from './apiTypes';
 
 const homeApi = createApi({
     reducerPath: 'homeApi',
@@ -27,12 +27,24 @@ const homeApi = createApi({
                 return response.body;
             },
         }),
-        getListComment: builder.query<CommentResponse, Number>({
+        getListComment: builder.query<CommentResponse[], Number>({
             query: (query) => ({
                 url: `comment/get/${query}`,
                 method: 'GET'
             }),
+            transformResponse: (response: { body: CommentResponse[] }, meta, arg) => {
+                return response.body;
+            },
+        }),
+        addComment: builder.mutation<CommentResponse, CommentRequest>({
+            query: (body) => ({
+                url: `comment/add`,
+                method: 'POST',
+                body: body
+            }),
             transformResponse: (response: { body: CommentResponse }, meta, arg) => {
+                console.log(response);
+                
                 return response.body;
             },
         }),
@@ -42,5 +54,6 @@ const homeApi = createApi({
 export default homeApi;
 export const {
   useLazyGetListPostQuery,
+  useAddCommentMutation,
   useLazyGetListCommentQuery
 } = homeApi;
