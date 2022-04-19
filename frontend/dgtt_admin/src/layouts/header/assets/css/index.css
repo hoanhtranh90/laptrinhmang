@@ -1,0 +1,15 @@
+.header-logo {
+    height: 55px;
+    width: 55px;
+    border: 1px solid grey;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+
+/* header */
+.header.ant-layout-header {
+    min-height: 80px;
+    padding: 12px 27px;
+    line-height: normal;
+    background: white;
+}

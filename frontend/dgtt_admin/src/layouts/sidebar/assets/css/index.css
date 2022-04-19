@@ -1,0 +1,12 @@
+.sidebar, .sidebar .ant-menu {
+    background-color: rgba(181, 222, 241) !important;
+}
+
+.sidebar .ant-menu {
+    border-right-color: rgba(181, 222, 241);
+}
+
+.sidebar-header {
+    padding: 24px 24px 12px 24px;
+    background-color: white;
+}

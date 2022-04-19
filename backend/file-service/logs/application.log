@@ -1,0 +1,67 @@
+10/01/2022 11:12:32 INFO  - Fetching config from server at : http://localhost:8888
+10/01/2022 11:12:34 INFO  - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+10/01/2022 11:12:34 WARN  - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/application/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+10/01/2022 11:12:34 INFO  - The following profiles are active: dev
+10/01/2022 11:12:35 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10/01/2022 11:12:35 INFO  - Finished Spring Data repository scanning in 313 ms. Found 43 JPA repository interfaces.
+10/01/2022 11:12:36 INFO  - BeanFactory id=2562ff95-6efa-3b85-a9d9-57a65faf5eb8
+10/01/2022 11:12:36 INFO  - Tomcat initialized with port(s): 9095 (http)
+10/01/2022 11:12:36 INFO  - Starting service [Tomcat]
+10/01/2022 11:12:36 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+10/01/2022 11:12:36 INFO  - Initializing Spring embedded WebApplicationContext
+10/01/2022 11:12:36 INFO  - Root WebApplicationContext: initialization completed in 2041 ms
+10/01/2022 11:12:37 INFO  - HikariPool-1 - Starting...
+10/01/2022 11:12:37 INFO  - HikariPool-1 - Start completed.
+10/01/2022 11:12:37 INFO  - Successfully acquired change log lock
+10/01/2022 11:12:37 INFO  - Successfully released change log lock
+10/01/2022 11:12:37 WARN  - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: Invocation of init method failed; nested exception is liquibase.exception.ChangeLogParseException: classpath:/db/changelog/db.changelog-master.yaml does not exist
+10/01/2022 11:12:37 INFO  - HikariPool-1 - Shutdown initiated...
+10/01/2022 11:12:37 INFO  - HikariPool-1 - Shutdown completed.
+10/01/2022 11:12:37 INFO  - Stopping service [Tomcat]
+10/01/2022 11:12:37 INFO  - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+10/01/2022 11:12:37 ERROR - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:/db/changelog/db.changelog-master.yaml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+10/01/2022 11:14:37 INFO  - Fetching config from server at : http://localhost:8888
+10/01/2022 11:14:40 INFO  - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+10/01/2022 11:14:40 WARN  - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/application/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+10/01/2022 11:14:40 INFO  - The following profiles are active: dev
+10/01/2022 11:14:40 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+10/01/2022 11:14:40 INFO  - Finished Spring Data repository scanning in 296 ms. Found 43 JPA repository interfaces.
+10/01/2022 11:14:41 INFO  - BeanFactory id=2562ff95-6efa-3b85-a9d9-57a65faf5eb8
+10/01/2022 11:14:41 INFO  - Tomcat initialized with port(s): 9095 (http)
+10/01/2022 11:14:41 INFO  - Starting service [Tomcat]
+10/01/2022 11:14:41 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+10/01/2022 11:14:41 INFO  - Initializing Spring embedded WebApplicationContext
+10/01/2022 11:14:41 INFO  - Root WebApplicationContext: initialization completed in 1874 ms
+10/01/2022 11:14:42 INFO  - HikariPool-1 - Starting...
+10/01/2022 11:14:42 INFO  - HikariPool-1 - Start completed.
+10/01/2022 11:14:42 INFO  - Successfully acquired change log lock
+10/01/2022 11:14:43 INFO  - Reading from arfm_v01.db_changelog
+10/01/2022 11:14:43 INFO  - Successfully released change log lock
+10/01/2022 11:14:43 INFO  - Successfully acquired change log lock
+10/01/2022 11:14:43 WARN  - Skipping auto-registration
+10/01/2022 11:14:43 INFO  - Successfully released change log lock
+10/01/2022 11:14:43 INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+10/01/2022 11:14:43 INFO  - HHH000412: Hibernate ORM core version 5.4.32.Final
+10/01/2022 11:14:43 INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+10/01/2022 11:14:43 INFO  - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+10/01/2022 11:14:54 INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+10/01/2022 11:14:54 INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10/01/2022 11:14:56 WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+10/01/2022 11:14:56 INFO  - Exposing 1 endpoint(s) beneath base path '/actuator'
+10/01/2022 11:14:56 INFO  - Tomcat started on port(s): 9095 (http) with context path '/file-service'
+10/01/2022 11:14:56 INFO  - Started FileServiceApplication in 20.151 seconds (JVM running for 21.988)
