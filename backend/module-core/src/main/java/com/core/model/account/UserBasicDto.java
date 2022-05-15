@@ -54,5 +54,7 @@ public class UserBasicDto {
 
     private List<Long> groupRoleIds;
 
+    private Long isFollow;
+
 
 }

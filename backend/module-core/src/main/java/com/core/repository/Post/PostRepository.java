@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long> {
@@ -26,9 +25,10 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("select p from Post p where p.createdBy = :id")
     List<Post> findAllPostByCreate(Long id);
 
-    @Query("select p from Post p where (p.isDelete = :isDelete)" +
-            "AND ( :keyword is null or p.title =:keyword or p.content =:keyword)"
+    @Query("select p from Post p where (p.isDelete = :isDelete) " +
+            "AND (p.createdBy in :followingListUName) " +
+            "AND (:keyword is null or p.title like :keyword or p.content like :keyword)"
     )
-    Page<Post> searchAll(Long isDelete, String keyword, Pageable pageable);
+    Page<Post> searchAll(Long isDelete, String keyword, List<String> followingListUName, Pageable pageable);
 }
 

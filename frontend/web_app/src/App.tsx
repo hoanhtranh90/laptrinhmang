@@ -8,7 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
+    <React.StrictMode>
     <Route />
+    </React.StrictMode>
   );
 }
 

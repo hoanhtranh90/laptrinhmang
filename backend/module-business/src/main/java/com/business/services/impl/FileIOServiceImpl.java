@@ -321,7 +321,7 @@ public class FileIOServiceImpl implements FileIOService {
         return vbAttachmentRepository.findByObjectIdAndObjectTypeAndIsDelete(objectId, objectType, Constants.DELETE.NORMAL);
     }
     @Override
-    public Boolean updateFileForObject(Long objecId , List<Long> listImageIds, Long type) throws BadRequestException {
+    public Boolean updateFileForObject(Long objecId , List<Long> listImageIds) throws BadRequestException {
         if(StringUtils.isTrue(listImageIds)){
 
             for ( Long attachId : listImageIds) {

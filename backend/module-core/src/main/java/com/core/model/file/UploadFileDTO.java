@@ -19,5 +19,4 @@ import java.util.List;
 public class UploadFileDTO {
     private Long objectId;
     private List<Long> listFileIds;
-    private Long objectType;
 }

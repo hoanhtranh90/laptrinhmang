@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { User } from './apiTypes';
+import { CommonListQuery, GetUserListParam, User, UserListResponse } from './apiTypes';
 import { Config } from '../../config/constant';
 
 export const accountApi = createApi({
@@ -21,9 +21,19 @@ export const accountApi = createApi({
                 return response.body;
             },
         }),
+        getUserList: builder.query<UserListResponse, Partial<CommonListQuery> & Partial<GetUserListParam>>({
+            query: (body) => ({
+                url: `search?page=${body.page || 0}&properties=userId&size=${body.size || 100}&sortBy=ASC`,
+                method: 'POST',
+                body: body,
+            }),
+            transformResponse: (response: { body: UserListResponse }, meta, arg) => {
+                return response.body;
+            },
+        }),
 
     })
 })
 
-export const { useLazyGetUserInfoQuery } = accountApi;
+export const { useLazyGetUserInfoQuery, useLazyGetUserListQuery  } = accountApi;
 export default accountApi;

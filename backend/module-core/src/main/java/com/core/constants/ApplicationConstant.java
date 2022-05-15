@@ -29,7 +29,7 @@ public class ApplicationConstant {
     public interface SECURITY_CONFIG {
 
         String[] WEB_IGNORING = {"/account-managers/test", "/actuator/**", "/csrf", "/my/docs", "/v2/api-docs/**", "/swagger.json", "/configuration/security", "/configuration/ui", "/swagger-resources/**",
-                "/configuration/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/account-managers/login", "/account-managers/register", "/file/downloadFile/**", "/files/**"};
+                "/configuration/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/account-managers/login", "/account-managers/register", "/files/downloadFile/**"};
 
     }
 

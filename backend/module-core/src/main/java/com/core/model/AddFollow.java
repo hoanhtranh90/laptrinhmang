@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class AddFollow {
     private Long followId;
+    private Long isFollow;
 }

@@ -30,7 +30,7 @@ public interface VbAttachmentRepository extends JpaRepository<VbAttachment, Long
     @Query("select a from VbAttachment a where a.isDelete =:isDelete and a.attachmentId in (:attachmentIds) and (:objectType is null or a.objectType = :objectType) ")
     List<VbAttachment> findByAttachmentIdInAndIsDelete(List<Long> attachmentIds, Long isDelete, Long objectType);
 
-    @Query("select a from VbAttachment a where a.isDelete =:isDelete and a.objectId =:objectId and  a.objectType = :objectType ")
+    @Query("select a from VbAttachment a where a.isDelete =:isDelete and a.objectId =:objectId and  a.objectType = :objectType order by a.createdDate desc")
     List<VbAttachment> findByObjectIdAndObjectTypeAndIsDelete(Long objectId, Long objectType, Long isDelete);
 
     @Query("select a from VbAttachment a where a.isDelete =:isDelete and a.attachmentId = :attachmentId ")

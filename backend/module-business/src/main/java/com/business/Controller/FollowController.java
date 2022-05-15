@@ -6,6 +6,7 @@ import com.core.exception.BadRequestException;
 import com.core.exception.PermissionException;
 import com.core.model.AddFollow;
 import com.core.model.ResponseBody;
+import com.core.model.search.SearchFollowDTO;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class FollowController {
     @Autowired
     private ApplicationConfig.MessageSourceVi messageSourceVi;
     //get list follow
-    @GetMapping("/list-follow")
+   /* @PostMapping("/list-follow")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> getAllFollow(
             @ApiParam(value = "Số trang", defaultValue = "0") @RequestParam(name = "page",
@@ -35,18 +36,20 @@ public class FollowController {
             @ApiParam(value = "Loại sắp xếp ", defaultValue = "ASC") @RequestParam(name = "sortBy",
                     defaultValue = "ASC") String sortBy,
             @ApiParam(value = "Từ khóa tìm kiếm: có thể tìm theo userName, fullName,email,phoneNumber.") @RequestParam(name = "keyword",
-                    required = false) String keyword) throws BadRequestException, PermissionException {
+                    required = false) String keyword,
+            @RequestBody SearchFollowDTO searchFollowDTO
+            ) throws BadRequestException, PermissionException {
         return ResponseEntity
-                .ok(ResponseBody.builder().body(followService.getListFollow(page, size, sortByProperties, sortBy, keyword)).message(messageSourceVi.getMessageVi("OK002")).build());
-    }
+                .ok(ResponseBody.builder().body(followService.getListFollow(page, size, sortByProperties, sortBy, keyword, searchFollowDTO)).message(messageSourceVi.getMessageVi("OK002")).build());
+    }*/
 
     //add follow
-    @PostMapping("/add-follow")
+    @PostMapping("/follow")
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> addFollow(
             @Valid @RequestBody AddFollow addFollow) throws BadRequestException, PermissionException {
         return ResponseEntity
-                .ok(ResponseBody.builder().body(followService.addFollow(addFollow)).message(messageSourceVi.getMessageVi("OK001")).build());
+                .ok(ResponseBody.builder().body(followService.addFollow(addFollow)).message(messageSourceVi.getMessageVi("OK002")).build());
     }
 }
 

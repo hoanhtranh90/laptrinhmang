@@ -287,9 +287,9 @@ const AccountDetail = () => {
                                         label="Email"
                                         name="email"
                                         wrapperCol={{ span: 18 }}
-                                        rules={[
-                                            { required: true, whitespace: true, message: "Email là bắt buộc, vui lòng nhập đầy đủ." }
-                                        ]}
+                                        // rules={[
+                                        //     { required: true, whitespace: true, message: "Email là bắt buộc, vui lòng nhập đầy đủ." }
+                                        // ]}
                                     >
                                         <Input placeholder="Nhập email" maxLength={50} />
                                     </Form.Item>
@@ -303,9 +303,9 @@ const AccountDetail = () => {
                                         label="Số điện thoại"
                                         name="phone"
                                         wrapperCol={{ span: 18 }}
-                                        rules={[
-                                            { required: true, whitespace: true, message: "Số điện thoại là bắt buộc, vui lòng nhập đầy đủ." }
-                                        ]}
+                                        // rules={[
+                                        //     { required: true, whitespace: true, message: "Số điện thoại là bắt buộc, vui lòng nhập đầy đủ." }
+                                        // ]}
                                     >
                                         <Input placeholder="Nhập số điện thoại" maxLength={10} />
                                     </Form.Item>

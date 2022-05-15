@@ -48,6 +48,15 @@ public class ApplicationUtils {
         }
 
     }
+    //check login
+    public static boolean isLogin() {
+        try {
+            return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
+    }
 
     public static UserTokenInfo getUserTokenInfo() {
         User user = getCurrentUser();

@@ -10,7 +10,7 @@ import { ReactComponent as File } from '../../assets/logos/file-menu.svg';
 import { ReactComponent as Settings } from '../../assets/logos/settings.svg';
 import { ReactComponent as Home } from '../../assets/logos/home.svg';
 
-import Icon, { DoubleRightOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import Icon, { AlignLeftOutlined, DoubleRightOutlined, HddOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import './assets/css/index.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -56,23 +56,25 @@ const Sidebar = ({ headerHeight }: Props) => {
                         Trang chủ
                     </Link>
                 </Menu.Item>
-                <SubMenu key='contract' title='Quản lý' icon={<FolderIcon />}>
+                {/* <SubMenu key='contract' title='Quản lý' icon={<AlignLeftOutlined />}>
                     <Menu.Item key='contract-detail'>
-                        <Link to='/auction/register'>
+                        <Link to='/follow'>
                             <DoubleRightOutlined /> Theo dõi 
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key='contract-register-list'>
-                        <Link to='/auction/auction-list'>
-                            <DoubleRightOutlined /> Danh sách 
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key='contract-signed-list'>
-                        <Link to='/auction/contract-list'>
-                            <DoubleRightOutlined /> Danh sách
-                        </Link>
-                    </Menu.Item>
-                </SubMenu>
+                    
+                    
+                </SubMenu> */}
+                <Menu.Item key='follow' icon={<AlignLeftOutlined />}>
+                    <Link to='/follow'>
+                        Theo dõi
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key='work' icon={<HddOutlined />}>
+                    <Link to='/work'>
+                        Công việc
+                    </Link>
+                </Menu.Item>
             </Menu>
         </Sider>
     )

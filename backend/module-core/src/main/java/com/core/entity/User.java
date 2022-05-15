@@ -63,6 +63,7 @@ public class User extends Auditable<String> implements Serializable {
 
 
 
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @Where(clause = "is_delete = 0")
@@ -71,6 +72,11 @@ public class User extends Auditable<String> implements Serializable {
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+
+    //one to many following
+    @JsonIgnore
+    @OneToMany(mappedBy = "follower", fetch = FetchType.EAGER)
+    private List<Follow> followingList;
 
     @Transient
     private String checkDomain;

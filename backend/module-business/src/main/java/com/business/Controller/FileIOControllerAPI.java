@@ -125,7 +125,7 @@ public class FileIOControllerAPI {
             @RequestBody UploadFileDTO uploadFileForobj)
             throws BadRequestException, PermissionException {
         return ResponseEntity
-                .ok(ResponseBodyWithType.builder().body(fileIOService.updateFileForObject(uploadFileForobj.getObjectId(), uploadFileForobj.getListFileIds(),uploadFileForobj.getObjectType())).message(messageSourceVi.getMessageVi("OK002")).build());
+                .ok(ResponseBodyWithType.builder().body(fileIOService.updateFileForObject(uploadFileForobj.getObjectId(), uploadFileForobj.getListFileIds())).message(messageSourceVi.getMessageVi("OK002")).build());
     }
 
     //get file by objectId and type

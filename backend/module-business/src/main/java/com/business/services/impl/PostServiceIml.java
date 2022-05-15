@@ -1,13 +1,16 @@
 package com.business.services.impl;
 
+import com.business.services.AcountManagementService;
 import com.business.services.PostService;
 import com.business.utilts.ApplicationUtils;
+import com.core.entity.Follow;
 import com.core.entity.Post;
 import com.core.entity.User;
 import com.core.exception.BadRequestException;
 import com.core.model.Post.CreatePostDTO;
 import com.core.model.account.UserBasicDto;
 import com.core.repository.Post.PostRepository;
+import com.core.repository.UserRepository;
 import com.core.utils.Constants;
 import com.core.utils.H;
 import com.core.utils.StringUtils;
@@ -23,6 +26,12 @@ import java.util.List;
 public class PostServiceIml implements PostService {
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private AcountManagementService acountManagementService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -55,9 +64,17 @@ public class PostServiceIml implements PostService {
         Pageable pageable = PageRequest.of(pageNumber, size, sort);
         keyword = StringUtils.buildLikeExp(keyword);
         List<Post> posts = new ArrayList<>();
+        List<Follow> followingList = userRepository.findByUserIdAndIsDelete(ApplicationUtils.getCurrentUser().getUserId(), Constants.DELETE.NORMAL).getFollowingList();
+        List<String> followingListUName = new ArrayList<>();
+        for(Follow follow : followingList){
+            followingListUName.add(follow.getFollowing().getUserName());
+        }
+        followingListUName.add(ApplicationUtils.getCurrentUser().getUserName());
+
         Page<Post> page = postRepository.searchAll(
                 Constants.DELETE.NORMAL,
                 keyword,
+                followingListUName,
                 pageable
         );
         page.getContent().stream().forEach(u -> {

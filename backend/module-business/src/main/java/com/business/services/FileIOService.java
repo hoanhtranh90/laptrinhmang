@@ -50,7 +50,7 @@ public interface FileIOService {
 
     List<VbAttachment> getFileByObjectIdAndObjectType(Long objectId, Long objectType);
 
-    Boolean updateFileForObject(Long objectId, List<Long> listFileIds, Long type) throws BadRequestException;
+    Boolean updateFileForObject(Long objectId, List<Long> listFileIds) throws BadRequestException;
 
     VbAttachment deleteFile(Long attachmentId);
 

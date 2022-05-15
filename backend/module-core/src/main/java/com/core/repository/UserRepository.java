@@ -54,7 +54,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "and (:userName is null or (LOWER(u.userName) like :userName)) "
             + "and (:fullName is null or (LOWER(u.fullName) like :fullName)) "
             + "and (:roleCode is null or r.roleCode = :roleCode) "
-            + "and (:phoneNumber is null or (LOWER(u.phoneNumber) like :fullName)) "
+            + "and (:phoneNumber is null or (LOWER(u.phoneNumber) like :phoneNumber)) "
             + "and (:email is null or (LOWER(u.email) like :email)) ")
     Page<User> searchAllUser(Long isDelete, String keyword, String userName, String fullName, String phoneNumber, String email, String roleCode, Pageable pageable);
 
@@ -64,6 +64,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.email = :email and u.isDelete=:isDelete")
     User existsByEmail(String email,  Long isDelete);
+
+
+    @Query(value = "SELECT u  FROM User u  where u.isDelete=:isDelete "
+            + "and (:keyword is null or (LOWER(u.userName) like :keyword or LOWER(u.fullName) like :keyword "
+            + "or LOWER(u.phoneNumber) like :keyword "
+            + "or LOWER(u.email) like :keyword) ) "
+    )
+    Page<User> getListSimpleUser(Long isDelete, String keyword, Pageable pageable);
 //    Page<User> searchAllUser(List<Integer> listStatus, String keyword, Date createdDateFrom,
 //            Date createdDateTo, String userName, String fullName, String phoneNumber, String email);
 }

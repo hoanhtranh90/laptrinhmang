@@ -1,42 +1,35 @@
-import { Alert, Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Alert, Button, Checkbox, Col, Form, Input, notification, Row, Typography } from 'antd';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import './assets/css/index.css';
 import { useEffect, useState } from 'react';
-import { useLoginMutation } from './redux/LoginApi';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks';
-import { setToken } from './redux/UserSlice';
 import { isTokenExpired } from '../common/assets/CommonFunctions';
+import { useRegisterMutation } from './redux/RegisterApi';
 
 const { Title } = Typography;
 
-const Login = () => {
+const Register = () => {
     const location = useLocation();
     const [isLogin, setIsLogin] = useState(false);
-    const [login, { isLoading, error }] = useLoginMutation();
     const user = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        let accessToken = localStorage.getItem("accessToken");
-        console.log('Failed:', accessToken)
-
-        if (accessToken && !isTokenExpired(accessToken)) {
-            setIsLogin(true);
-            dispatch(setToken(accessToken));
-        }
-    }, [dispatch])
-
-    useEffect(() => {
-        console.log('Failed:12', user)
-
-        if (user.userToken && !isTokenExpired(user.userToken)) {
-            localStorage.setItem("accessToken", user.userToken);
-            setIsLogin(true);
-        }
-    }, [user])
-
+    const [register] = useRegisterMutation();
+    const navigate = useNavigate();
     const onFinish = (values: any) => {
-        login({ uname: values.username, pwd: values.password })
+        register({ 
+            userName: values.username, 
+            password: values.password,
+            email: values.email,
+            phoneNumber: values.phoneNumber, 
+            fullName: values.fullName,
+        }).then(res => {
+            console.log(res);
+            notification.success({
+                message: "Đăng ký thành công!",
+            })
+            //redirect to login page with ts
+            navigate('/login');
+        });
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -52,8 +45,8 @@ const Login = () => {
             <Row align='middle' justify='center'>
                 <Col span={8} offset={16} className='login-card'>
                     {/* <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignContent: 'center', justifyItems: 'center' }}> */}
-                    <Title level={2}>ĐĂNG NHẬP</Title>
-                    <Alert message={user?.errorMessage || "Đã có lỗi xảy ra"} type="error" style={{ marginBottom: 10, visibility: error ? 'visible' : 'hidden' }} />
+                    <Title level={2}>ĐĂNG KÝ</Title>
+                    {/* <Alert message={user?.errorMessage || "Đã có lỗi xảy ra"} type="error" style={{ marginBottom: 10, visibility: error ? 'visible' : 'hidden' }} /> */}
                     <Form
                         name="loginForm"
                         labelCol={{ span: 8 }}
@@ -78,6 +71,36 @@ const Login = () => {
                         <Form.Item
                             labelCol={{ span: 9 }}
                             labelAlign='left'
+                            label="Họ và tên"
+                            name="fullName"
+                            rules={[{ required: true, message: 'Tên hiển thị bắt buộc' }]}
+                        >
+                            <Input style={{ height: 50 }} placeholder="Tên hiển thị" maxLength={50} />
+                        </Form.Item>
+
+                        {/* email */}
+                        <Form.Item
+                            labelCol={{ span: 9 }}
+                            labelAlign='left'
+                            label="Email"
+                            name="email"
+                            rules={[{ required: true, message: 'Email là bắt buộc.' }]}
+                        >
+                            <Input style={{ height: 50 }} placeholder="Email" maxLength={50} />
+                        </Form.Item>
+
+                        <Form.Item
+                            labelCol={{ span: 9 }}
+                            labelAlign='left'
+                            label="Số điện thoại"
+                            name="phoneNumber"
+                        >
+                            <Input style={{ height: 50 }} placeholder="Số điện thoại" maxLength={50} />
+                        </Form.Item>
+
+                        <Form.Item
+                            labelCol={{ span: 9 }}
+                            labelAlign='left'
                             label="Mật khẩu"
                             name="password"
                             rules={[{ required: true, message: 'Mật khẩu là bắt buộc, vui lòng nhập đầy đủ.' }]}
@@ -88,18 +111,8 @@ const Login = () => {
                         <Form.Item style={{ justifyContent: 'end' }}>
                             <Row gutter={48}>
                                 <Col span={12}>
-                                    {!isLoading ?
-                                        <Button type="primary" htmlType="submit">
-                                            Đăng nhập
-                                        </Button> :
-                                        <Button type='primary' loading>Đăng nhập</Button>}
-                                </Col>
-                                <Col span={12}>
-                                    <Button  >
-
-                                        <Link to='/register'>
-                                            <span>Đăng ký</span>
-                                        </Link>
+                                    <Button  htmlType="submit">
+                                           Đăng ký
                                     </Button>
                                 </Col>
                             </Row>
@@ -114,4 +127,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Register;

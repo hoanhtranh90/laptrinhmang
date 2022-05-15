@@ -5,6 +5,7 @@ import com.business.authencation.CustomUserDetails;
 import com.business.authencation.JwtAuthenticationResponse;
 import com.business.authencation.JwtTokenProvider;
 import com.business.utilts.ApplicationUtils;
+import com.core.entity.*;
 import com.core.mapper.MapperObject;
 import com.core.model.account.*;
 import com.business.services.AcountManagementService;
@@ -14,10 +15,6 @@ import com.core.constants.ActionLogEnum;
 import com.core.constants.PermissionEnum;
 import com.core.constants.StatusEnum;
 import com.core.constants.TypeLogEnum;
-import com.core.entity.Role;
-import com.core.entity.User;
-import com.core.entity.UserRole;
-import com.core.entity.UserSession;
 import com.core.exception.BadRequestException;
 import com.core.exception.PermissionException;
 import com.core.exception.UnauthorizedException;
@@ -55,6 +52,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.business.utilts.ApplicationUtils.isLogin;
 
 /**
  *
@@ -111,6 +110,9 @@ public class AcountManagementServiceImpl implements AcountManagementService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private FollowRepository followRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -208,7 +210,7 @@ public class AcountManagementServiceImpl implements AcountManagementService {
                     .user(userRepository.save(userRegister))
                     .isDelete(Constants.DELETE.NORMAL)
                     .status(StatusEnum.ACTIVE.getStatus())
-                    .userRoleId(role.getRoleId()).build();
+                    .build();
             userRoleRepository.save(userRole);
 
             return getUserByUser(userRegister);
@@ -260,8 +262,15 @@ public class AcountManagementServiceImpl implements AcountManagementService {
             keyword = null;
         }
         List<UserBasicDto> userBasicDtos = new ArrayList<>();
-        Page<User> page = userRepository.searchAllUser(Constants.DELETE.NORMAL, keyword, StringUtils.buildLikeExp(userSearchDto.getUserName()),
-                StringUtils.buildLikeExp(userSearchDto.getFullName()), StringUtils.buildLikeExp(userSearchDto.getPhoneNumber()), StringUtils.buildLikeExp(userSearchDto.getEmail()), userSearchDto.getRoleCode(), pageable);
+        Page<User> page = userRepository.searchAllUser(
+                Constants.DELETE.NORMAL,
+                keyword,
+                StringUtils.buildLikeExp(userSearchDto.getUserName()),
+                StringUtils.buildLikeExp(userSearchDto.getFullName()),
+                StringUtils.buildLikeExp(userSearchDto.getPhoneNumber()),
+                StringUtils.buildLikeExp(userSearchDto.getEmail()),
+                userSearchDto.getRoleCode(),
+                pageable);
         page.getContent().stream().forEach(u -> {
             userBasicDtos.add(getUserByUser(u));
         });
@@ -399,8 +408,11 @@ public class AcountManagementServiceImpl implements AcountManagementService {
     }
 
     public UserBasicDto getUserByUser(User userForUpdate) {
+
         if (null != userForUpdate) {
             UserBasicDto basicDto = modelMapper.map(userForUpdate, UserBasicDto.class);
+
+            if(isLogin()) basicDto.setIsFollow(isFollow(userForUpdate));
 
             if (StringUtils.isTrue(userForUpdate.getUserRoleList())) {
                 List<String> roles = new ArrayList<>();
@@ -414,7 +426,14 @@ public class AcountManagementServiceImpl implements AcountManagementService {
         }
         return null;
     }
-
+    private Long isFollow(User user) {
+        User currentUser = ApplicationUtils.getCurrentUser();
+        Follow follow = followRepository.findByFollowerAndFollowing(currentUser.getUserId(), user.getUserId());
+        if (follow == null) {
+            return 0L;
+        }
+        return 1L;
+    }
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findByUserName(username, Constants.DELETE.NORMAL);

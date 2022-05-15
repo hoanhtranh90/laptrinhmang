@@ -64,6 +64,7 @@ export interface User {
     userId?: number,
     userName?: string,
     identificationNumber?: string,
+    isFollow?: number
 }
 
 
@@ -118,4 +119,23 @@ export interface PostDetail {
     modifiedDate?: number,
     isDelete?: number,
     [key: string]: any
+}
+
+export interface UserListResponse {
+    content: User[],
+    totalElements: number,
+}
+export interface GetUserListParam {
+    deptId?: number,
+    email?: string,
+    fullName?: string,
+    groupRoleActionCodelist?: string[],
+    phoneNumber?: number,
+    roleCode?: string,
+    userName?: string,
+}
+
+export interface ChangeFollowRequest {
+    followId: number,
+    isFollow: number,
 }
