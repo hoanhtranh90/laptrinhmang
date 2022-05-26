@@ -406,7 +406,7 @@ const AccountDetail = () => {
 
                     <ConfirmationModal
                         visible={visible}
-                        message="Bạn có chắc chắn muốn cập nhật thông tin cá nhân không?"
+                        message="Bạn có chắc chắn muốn cập nhật thông tin cá nhân không 1 2 3 ?"
                         toggleModal={toggleModal}
                         modalAction={() => form.submit()}
                     />
