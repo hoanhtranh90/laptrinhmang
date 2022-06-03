@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../modules/login/redux/UserSlice';
+
 import accountApi from './api/AccountApi';
 import fileApi from './api/FileApi';
 import followApi from './api/FollowApi';
 import homeApi from './api/HomeApi';
+import marketApi from './api/MarketApi';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
         [fileApi.reducerPath]: fileApi.reducer,
         [homeApi.reducerPath]: homeApi.reducer,
         [followApi.reducerPath]: followApi.reducer,
+        [marketApi.reducerPath]: marketApi.reducer,
+      
         user: userReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -19,6 +23,7 @@ export const store = configureStore({
             fileApi.middleware,
             homeApi.middleware,
             followApi.middleware,
+            marketApi.middleware,
         )
 })
 

@@ -9,6 +9,7 @@ import com.core.exception.UnauthorizedException;
 import com.core.model.user.UserDTO;
 import org.springframework.data.domain.Page;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Set;
 
@@ -57,5 +58,11 @@ public interface AcountManagementService {
     UserDTO changePass_(UserChangePassDto userChangePassDto) throws BadRequestException;
 
     boolean checkExitsByEmail(String email);
+
+    void generateOTP(String email) throws MessagingException, BadRequestException;
+
+    String validateOtp(ValidateOtpDTO otpnum) throws BadRequestException;
+
+    String validateOtpAndChangePass(ValidateOtpDTOAndChangePass validateOtpDTO) throws BadRequestException;
 }
 

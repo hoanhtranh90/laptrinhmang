@@ -106,6 +106,8 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
         }
         console.log(postInfo);
         
+
+        //chuyển data sag api
         addPost(postInfo).unwrap().then(res => {
             notification.success({
                 message: "Thêm mới thành công!"
@@ -146,7 +148,7 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
     return (
         <Modal
             visible={visible}
-            title="Thông tin banner"
+            title="Thông tin banner 1"
             onCancel={() => toggleModal()}
             width={800}
             footer={[

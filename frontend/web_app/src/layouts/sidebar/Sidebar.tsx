@@ -10,7 +10,7 @@ import { ReactComponent as File } from '../../assets/logos/file-menu.svg';
 import { ReactComponent as Settings } from '../../assets/logos/settings.svg';
 import { ReactComponent as Home } from '../../assets/logos/home.svg';
 
-import Icon, { AlignLeftOutlined, DoubleRightOutlined, HddOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import Icon, { AlignLeftOutlined, DoubleRightOutlined, HddOutlined, MenuFoldOutlined, MenuUnfoldOutlined, ShopOutlined } from '@ant-design/icons';
 import './assets/css/index.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -70,9 +70,14 @@ const Sidebar = ({ headerHeight }: Props) => {
                         Theo dõi
                     </Link>
                 </Menu.Item>
-                <Menu.Item key='work' icon={<HddOutlined />}>
+                {/* <Menu.Item key='work' icon={<HddOutlined />}>
                     <Link to='/work'>
                         Công việc
+                    </Link>
+                </Menu.Item> */}
+                <Menu.Item key='market' icon={<ShopOutlined />}>
+                    <Link to='/market'>
+                        Market
                     </Link>
                 </Menu.Item>
             </Menu>

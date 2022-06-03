@@ -1,6 +1,6 @@
 package com.business.services.impl;
 
-import com.business.services.AcountManagementService;
+import com.business.services.*;
 import com.business.authencation.CustomUserDetails;
 import com.business.authencation.JwtAuthenticationResponse;
 import com.business.authencation.JwtTokenProvider;
@@ -9,7 +9,6 @@ import com.core.entity.*;
 import com.core.mapper.MapperObject;
 import com.core.model.account.*;
 import com.business.services.AcountManagementService;
-import com.business.services.ActionLogService;
 import com.core.config.ApplicationConfig.MessageSourceVi;
 import com.core.constants.ActionLogEnum;
 import com.core.constants.PermissionEnum;
@@ -46,6 +45,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -103,6 +103,9 @@ public class AcountManagementServiceImpl implements AcountManagementService {
     private UserRepository userRepository;
 
     @Autowired
+    private OTPService otpService;
+
+    @Autowired
     private UserSessionRepository userSessionRepository;
 
     @Autowired
@@ -120,7 +123,8 @@ public class AcountManagementServiceImpl implements AcountManagementService {
     @Autowired
     private ModelMapper modelMapper;
 
-
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -569,6 +573,78 @@ public class AcountManagementServiceImpl implements AcountManagementService {
     public boolean checkExitsByEmail(String email) {
         User user = userRepository.existsByEmail(email, Constants.DELETE.NORMAL);
         return H.isTrue(user);
+    }
+
+    @Override
+    public void generateOTP(String email) throws MessagingException, BadRequestException {
+        User user = userRepository.findByEmail(email, Constants.DELETE.NORMAL);
+        if (!H.isTrue(user)) {
+            throw new BadRequestException(messageSourceVi.getMessageVi("ER024", new Object[]{"Email"}));
+        }
+        String getEmail = user.getEmail();
+        Long otp = otpService.generateOTP(getEmail);
+        emailService.sendEmail("Khôi phục tài khoản", emailService.buildEmailSendOtpForResetPassWord(user, otp), Collections.singletonList(getEmail));
+//        EmailTemplate template = new EmailTemplate("SendOtp.html");
+//        Map replacements = new HashMap();
+//        replacements.put("user", username);
+//        replacements.put("otpnum", String.valueOf(otp));
+//        String message = template.getTemplate(replacements);
+//
+//        emailService.sendOtpMessage("nayanajain854@gmail.com", "OTP -SpringBoot", message);
+    }
+
+    @Override
+    public String validateOtp(ValidateOtpDTO validateOtpDTO) throws BadRequestException {
+        final String FAIL = "OTP không đúng";
+        //Validate the Otp
+        if (validateOtpDTO.getOtp() >= 0) {
+            Long serverOtp = otpService.getOtp(validateOtpDTO.getEmail());
+            User user = userRepository.findByEmail(validateOtpDTO.getEmail(), Constants.DELETE.NORMAL);
+            if (!H.isTrue(user)) {
+                throw new BadRequestException(messageSourceVi.getMessageVi("ER024", new Object[]{"Email"}));
+            }
+            if (serverOtp > 0) {
+                if (validateOtpDTO.getOtp() == serverOtp) {
+                    return ("OK");
+                } else {
+                    throw new BadRequestException(FAIL);
+                }
+            } else {
+                throw new BadRequestException(FAIL);
+            }
+        } else {
+            throw new BadRequestException(FAIL);
+        }
+    }
+
+    @Override
+    public String validateOtpAndChangePass(ValidateOtpDTOAndChangePass validateOtpDTO) throws BadRequestException {
+        final String FAIL = "OTP không đúng";
+        //Validate the Otp
+        if (validateOtpDTO.getOtp() >= 0) {
+            Long serverOtp = otpService.getOtp(validateOtpDTO.getEmail());
+            User user = userRepository.findByEmail(validateOtpDTO.getEmail(), Constants.DELETE.NORMAL);
+            if (!H.isTrue(user)) {
+                throw new BadRequestException(messageSourceVi.getMessageVi("ER024", new Object[]{"Email"}));
+            }
+            if (serverOtp > 0) {
+                if (validateOtpDTO.getOtp() == serverOtp) {
+                    if (!validateOtpDTO.getNewPassword().equals(validateOtpDTO.getConfirmPassword())) {
+                        throw new BadRequestException("Nhập lại mật khẩu không đúng");
+                    }
+                    user.setPassword(passwordEncoder.encode(validateOtpDTO.getNewPassword()));
+                    userRepository.save(user);
+                    otpService.clearOTP(validateOtpDTO.getEmail());
+                    return ("OK");
+                } else {
+                    throw new BadRequestException(FAIL);
+                }
+            } else {
+                throw new BadRequestException(FAIL);
+            }
+        } else {
+            throw new BadRequestException(FAIL);
+        }
     }
 
     //Check if there is any common character in two given strings

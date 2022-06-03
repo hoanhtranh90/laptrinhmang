@@ -102,6 +102,17 @@ const Login = () => {
                                         </Link>
                                     </Button>
                                 </Col>
+
+                            </Row>
+                            <Row gutter={48} style={{marginTop:"20px"}}>
+                                <Col span={12}>
+                                    <Button  >
+
+                                        <Link to='/forget-pass'>
+                                            <span>Quên mật khẩu</span>
+                                        </Link>
+                                    </Button>
+                                </Col>
                             </Row>
                         </Form.Item>
                     </Form>

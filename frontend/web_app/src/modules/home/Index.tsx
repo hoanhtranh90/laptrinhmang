@@ -56,6 +56,7 @@ const Home = () => {
 
             })
     }
+    //lấy data lần đầu
     useEffect(() => {
         getData();
 
@@ -106,6 +107,7 @@ const Home = () => {
                     
                 </Button>
             </div>
+            
             {addVisible ?
                 <CreatePost visible={addVisible} toggleModal={toggleAddModal} onSuccess={() => triggerSearch()} />
                 : <></>}
