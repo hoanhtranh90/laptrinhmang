@@ -75,9 +75,9 @@ const Sidebar = ({ headerHeight }: Props) => {
                         Công việc
                     </Link>
                 </Menu.Item> */}
-                <Menu.Item key='market' icon={<ShopOutlined />}>
-                    <Link to='/market'>
-                        Market
+                <Menu.Item key='livestream' icon={<ShopOutlined />}>
+                    <Link to='/live'>
+                        LiveStream
                     </Link>
                 </Menu.Item>
             </Menu>

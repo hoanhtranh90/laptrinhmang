@@ -16,7 +16,6 @@ interface Props {
 }
 
 const { confirm } = Modal;
-const imageTypes = ['image/png', 'image/jpeg', 'image/png'];
 
 const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
     const [form] = Form.useForm();
@@ -36,6 +35,14 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
 
     const toggleConfirm = () => {
         setConfirmVisible(!confirmVisible);
+    }
+    const hideModalAction = () => {
+        toggleModal();
+        setErrorStatus(false);
+        setHelper("");
+        setDeleteIds([]);
+        form.resetFields();
+
     }
     const onFileRemove = (file: any) => {
         return new Promise<boolean>((resolve, reject) => {
@@ -72,11 +79,27 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
                 options.onError();
             })
     }
+    const customUpload1 = (options: any) => {
+        options.onProgress({ percent: 0 })
+        let formData = new FormData();
+        formData.append('file', options.file);
+        uploadFile({
+            file: formData,
+            objectType: fileTypes.POST,
+            storageType: "image",
+        }).unwrap()
+            .then(res => {
+                options.onProgress({ percent: 100 });
+                options.onSuccess(res, options.file);
+            }).catch(err => {
+                options.onError();
+            })
+    }
 
     const beforeUpload = (files: File[]) => {
         let accepted = true;
         Array.from(files).forEach(file => {
-            if (!imageTypes.includes(file.type) || file.size / (1024 * 1024) > 5) {
+            if ( file.size / (1024 * 1024) > 40) {
                 accepted = false;
                 setErrorStatus(true);
                 setHelper("Định dạng file không hợp lệ")
@@ -99,6 +122,7 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
         })
 
         let imageIds = values.upload?.length ? values.upload.map((item: any) => item.response.attachmentId) : [];
+        let imageIds1 = values.upload1?.length ? values.upload1.map((item: any) => item.response.attachmentId) : [];
 
         let postInfo: CreatePostRequest = {
             title: values.title,
@@ -115,7 +139,8 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
             onSuccess();
             toggleModal();
             setLoading(false);
-            addImageAfterSubmit(res.id, imageIds);
+            addFileAfterSubmit(res.id, imageIds);
+            addFileAfterSubmit(res.id, imageIds1);
         }).catch(err => {
             notification.error({
                 message: err.data?.message || "Đã có lỗi xảy ra, xin vui lòng thử lại sau!",
@@ -124,7 +149,8 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
         })
 
     }
-    const addImageAfterSubmit = (objectId: number, listFileIds: Array<number>) => {
+
+    const addFileAfterSubmit = (objectId: number, listFileIds: Array<number>) => {
         addImage({
             listFileIds: listFileIds,
             objectId: objectId,
@@ -149,7 +175,7 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
         <Modal
             visible={visible}
             title="Thông tin banner 1"
-            onCancel={() => toggleModal()}
+            onCancel={() => hideModalAction()}
             width={800}
             footer={[
                 <React.Fragment key="footer">
@@ -194,11 +220,34 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Hình ảnh"
+                    label="Tệp âm thanh"
                     name="upload"
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
-                    extra="(Vui lòng chọn một hình ảnh có định dạng jpg, jpeg, png có dung lượng nhỏ hơn 5MB)"
+                    labelCol={{ span: 3 }}
+                    wrapperCol={{ span: 21 }}
+                    validateStatus={errorStatus ? "error" : ""}
+                    help={helper}
+                >
+                    <Upload
+                        onRemove={(file) => onFileRemove(file)}
+                        customRequest={(options) => customUpload(options)}
+                        //just allow audio
+                        accept="audio/*"
+                        beforeUpload={(file, fileList) => beforeUpload(fileList)}
+                        name="audio"
+                        listType="picture-card"
+                        showUploadList={{ showRemoveIcon: false }}
+                        maxCount={1}
+                    >
+                        <Button icon={<UploadOutlined />} type="link" />
+                    </Upload>
+                </Form.Item>
+                <Form.Item
+                    label="Hình ảnh"
+                    name="upload1"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
                     rules={[
                         { required: true, message: "Hình ảnh là bắt buộc, vui lòng nhập đầy đủ." }
                     ]}
@@ -209,13 +258,14 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
                 >
                     <Upload
                         onRemove={(file) => onFileRemove(file)}
-                        customRequest={(options) => customUpload(options)}
+                        customRequest={(options) => customUpload1(options)}
+                        //just allow audio
                         accept="image/jpg,image/jpeg,image/png"
                         beforeUpload={(file, fileList) => beforeUpload(fileList)}
                         name="image"
                         listType="picture-card"
                         showUploadList={{ showRemoveIcon: false }}
-                        maxCount={5}
+                        maxCount={1}
                     >
                         <Button icon={<UploadOutlined />} type="link" />
                     </Upload>

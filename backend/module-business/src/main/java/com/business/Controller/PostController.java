@@ -11,16 +11,24 @@ import com.core.model.ResponseBody;
 import com.core.model.account.UserSearchDto;
 import com.core.utils.StringUtils;
 import io.swagger.annotations.*;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/post")
 public class PostController {
+
 
     @Autowired
     private PostService postService;
@@ -76,4 +84,5 @@ public class PostController {
         return ResponseEntity
                 .ok(ResponseBody.builder().body(postService.deletePost(id)).message(messageSourceVi.getMessageVi("OK002")).build());
     }
+
 }

@@ -34,6 +34,7 @@ public class ApplicationConstant {
                 "/account-managers/generateOtp/**",
                 "/account-managers/validateOtp",
                 "/account-managers/validateOtpAndChangePass",
+                "/sse/*",
                 "/files/downloadFile/**"};
 
     }

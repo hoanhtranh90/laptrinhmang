@@ -28,14 +28,22 @@ const Home = () => {
                     const promises = newListPost.map(async (item, index) => {
                         await fileIdTrigger({ objectId: item.id, objectType: fileTypes.POST }).unwrap()
                             .then(res1 => {
-                                let url = process.env.REACT_APP_API_URL + "/files/downloadFile/" + res1[0].attachmentId;
-                                item.imageFirst = url;
+                                console.log("res1", res1);
+                                
+                                // let url = process.env.REACT_APP_API_URL + "/files/downloadFile/" + res1[0].attachmentId;
+                                
+                               
 
                                 //string type
                                 let imagePath: String[] = [];
-                                res1.map(e => {
-                                    let url = process.env.REACT_APP_API_URL + "/files/downloadFile/" + e.attachmentId;
-                                    imagePath.push(url);
+                                res1.map((e,index) => {
+                                    
+                                    if(e.contentType.includes("audio")){
+                                        item.imageFirst = process.env.REACT_APP_API_URL + "/files/downloadFile/" + e.attachmentId;
+                                    }
+                                    if(e.contentType.includes("image")){
+                                        item.fileImage = process.env.REACT_APP_API_URL + "/files/downloadFile/" + e.attachmentId;; 
+                                    }
                                 })
                                 item.imagePath = imagePath;
                                 console.log("3");
@@ -83,24 +91,11 @@ const Home = () => {
             <Masonry
                 items={listPost}
                 columnGutter={18} // Set khoảng cách giữa các column
-                columnWidth={450} // Set chiều rộng tối thiểu là 300px
-                overscanBy={5} // Giá trị để render trước khi scroll tới
+                columnWidth={1450} // Set chiều rộng tối thiểu là 300px
+                overscanBy={1} // Giá trị để render trước khi scroll tới
                 render={ImageCard} // Grid item của component
 
             ></Masonry>
-            {/* <Row justify="space-between" align="middle">
-                <Col span={6}>
-                    <div className='content-box-button'>
-                        <div className='content-box-label' style={{ marginBottom: 20 }}>
-                            <label style={{ fontWeight: 700 }}>Tổng số 0 bản ghi </label>
-                        </div>
-                    </div>
-                </Col>
-                <Col span={6} style={{ textAlign: 'right' }}>
-                    <Button type='primary' style={{ marginLeft: 0 }} onClick={toggleAddModal}>Thêm mới</Button>
-                </Col>
-            </Row> */}
-            {/* floating button */}
             <div className='floating-button'>
                 
                 <Button type='primary' icon={<PlusOutlined />} onClick={toggleAddModal} className="floating-icon">

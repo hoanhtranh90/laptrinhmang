@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react'
 import { CommentResponse, PostDetail } from '../../redux/api/apiTypes';
 import './assets/css/index.css';
+import TimeSlider from "react-input-slider";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import { Avatar, Image, Card, Modal, Carousel, Typography, Badge, Divider, Input, Button, message } from 'antd';
-import { DeleteOutlined, HeartFilled, HeartOutlined, MessageOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { CaretRightOutlined, DeleteOutlined, HeartFilled, HeartOutlined, MessageOutlined, PauseOutlined, ShareAltOutlined, StepBackwardOutlined, StepForwardOutlined } from '@ant-design/icons';
 import { useAddCommentMutation, useDeletePostMutation, useLazyGetListCommentQuery } from '../../redux/api/HomeApi';
 const { Meta } = Card;
 const ImageCard = (props: any) => {
@@ -18,10 +21,17 @@ const ImageCard = (props: any) => {
     const [deletePostEx] = useDeletePostMutation();
     const [addComment] = useAddCommentMutation();
 
+
+    const audioRef = useRef();
+    const [audioIndex, setAudioIndex] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [isPlay, setPlay] = useState(false);
+
     //set type any
     const slider = useRef<any>(null);
 
-    const handleSubmitCmt = (e:any) => {
+    const handleSubmitCmt = (e: any) => {
         e.preventDefault();
         if (comment.trim() === "") {
             setErrors("Write something");
@@ -30,15 +40,15 @@ const ImageCard = (props: any) => {
             }, 2000);
         } else {
             const newComment = { body: comment };
-            addComment({content: comment, postId: props.data.id}).unwrap()
-            .then( res => {
-                console.log("res", res);
-                
-                setListComment([...listComment, res])
-            })
-            .catch(err => {
+            addComment({ content: comment, postId: props.data.id }).unwrap()
+                .then(res => {
+                    console.log("res", res);
 
-            })
+                    setListComment([...listComment, res])
+                })
+                .catch(err => {
+
+                })
             setLoading(true);
             setTimeout(() => {
                 setComment("");
@@ -47,66 +57,13 @@ const ImageCard = (props: any) => {
         }
     };
 
-    const SampleNextArrow = (props:any) => {
-        const { className, style, onClick } = props
-        return (
-          <div
-            className={className}
-            style={{
-              ...style,
-              color: 'black',
-              fontSize: '15px',
-              lineHeight: '1.5715',
-              backgroundColor: "#ccc",
-              opacity: ".7",
-              justifyContent: 'center',
-              display: "flex",
-              width: "2.5rem",
-              height: "2.5rem",
-              borderRadius: "50%",
-              zIndex: "100"
-    
-            }}
-            onClick={onClick}
-          >
-          </div>
-        )
-      }
-      const SamplePrevArrow = (props:any) => {
-        const { className, style, onClick } = props
-        return (
-          <div
-            className={className}
-            style={{
-              ...style,
-              color: 'black',
-              fontSize: '15px',
-              lineHeight: '1.5715',
-              backgroundColor: "#ccc",
-              opacity: ".7",
-              justifyContent: 'center',
-              display: "flex",
-              width: "2.5rem",
-              height: "2.5rem",
-              borderRadius: "50%",
-              zIndex: "100"
-    
-            }}
-            onClick={onClick}
-          >
-          </div>
-        )
-      }
-      const settings = {
-        nextArrow: <SampleNextArrow onClick={() => slider.current.prev()} />,
-        prevArrow: <SamplePrevArrow onClick={() => slider.current.next()} />
-      }
+
     const showModal = () => {
         getComment(props.data.id).unwrap()
-        .then((res) => {
-            console.log("res", res);
-            setListComment(res)
-        })
+            .then((res) => {
+                console.log("res", res);
+                setListComment(res)
+            })
 
 
         // setVisible(true);
@@ -115,13 +72,13 @@ const ImageCard = (props: any) => {
     const deletePost = () => {
         console.log(props);
         let postId = props.data.id;
-        deletePostEx({postId}).unwrap()
-        .then(res => {
-            console.log("res", res);
-            //message
-            message.success("Thành công");
-            window.location.reload();
-        })
+        deletePostEx({ postId }).unwrap()
+            .then(res => {
+                console.log("res", res);
+                //message
+                message.success("Thành công");
+                window.location.reload();
+            })
         //reload page
         // 
     }
@@ -132,16 +89,48 @@ const ImageCard = (props: any) => {
 
     const handleCancel = () => {
         setIsModalVisible(false);
+
+        //remove this modal
+        document.getElementsByClassName("ant-modal-wrap")[0].remove();
+
     };
 
     console.log('ImageCard:', props);
+    //@ts-ignore
+    const handleTimeSliderChange = ({ x }) => {
 
+        //@ts-ignore
+        audioRef.current.currentTime = x;
+        setCurrentTime(x);
+    
+        if (!isPlay) {
+          setPlay(true);
+          //@ts-ignore
+          audioRef.current.audio.pause();
+        }
+      };
+      const handlePausePlayClick = () => {
+        if (isPlay) {
+             //@ts-ignore
+          audioRef.current.pause();
+        } else {
+             //@ts-ignore
+          audioRef.current.play();
+        }
+        setPlay(!isPlay);
+      };
+      const handleLoadedData = () => {
+          //@ts-ignore
+        setDuration(audioRef.current.duration);
+        //@ts-ignore
+        if (isPlay) audioRef.current.play();
+      };
     return (
         <div  >
-             <div className={'card'} onClick={showModal} onMouseOver={()=>setCheckHover(true)} onMouseLeave={()=>setCheckHover(false)}>
-                <img src={props.data.imageFirst} alt='image' className={'img'} />
+            <div className={'card'} onClick={showModal} onMouseOver={() => setCheckHover(true)} onMouseLeave={() => setCheckHover(false)}>
+                {/* <img src={props.data.imageFirst} alt='image' className={'img'} /> */}
                 <Meta className="mt-1"
-                    style={!checkHover ? { marginRight: "auto", padding: " 0 15px", opacity: 0, maxHeight: 0, transition: "all 0.3s ease-in-out" } : { maxHeight: "100%", marginRight: "auto", padding: "15px", opacity: 1, transition: "all 0.3s ease-in-out" }}
+                    style={{ maxHeight: "100%", marginRight: "auto", padding: "15px", opacity: 1, transition: "all 0.3s ease-in-out" }}
                     avatar={<Avatar style={{ backgroundColor: "#000" }}>{props.data.createdBy && props.data.createdBy.charAt(0).toUpperCase()}</Avatar>}
                     title={props.data.title}
                 />
@@ -149,7 +138,7 @@ const ImageCard = (props: any) => {
             <Modal title={props.data.title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={[]} width={"90%"} centered bodyStyle={{ backgroundColor: "#fff" }} >
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <div style={{ width: "80%" }}>
-                        <Carousel dots={false} ref={slider} arrows {...settings}>
+                        {/* <Carousel dots={false} ref={slider} arrows {...settings}>
                             {props.data && props.data.imagePath.map((item:string, index: number) => {
                                 return <div style={{ display: "flex" }}>
                                     <Image
@@ -164,9 +153,63 @@ const ImageCard = (props: any) => {
                                     />
                                 </div>
                             })}
-                        </Carousel>
+                        </Carousel> */}
 
-
+                        <div className="App">
+                            <img className="Song-Thumbnail" src={props.data.fileImage} alt="tet" style={{maxWidth:"500px"}}/>
+                            <h2 className="Song-Title">{props.data.title}</h2>
+                            <p className="Singer">{props.data.createdBy}</p>
+                            {/* <div className="Control-Button-Group">
+                               
+                                <div className="Pause-Play-Button" onClick={handlePausePlayClick}>
+                                    {isPlay ? <PauseOutlined /> : <CaretRightOutlined />}
+                                </div>
+                              
+                            </div> 
+                             <TimeSlider
+                                axis="x"
+                                xmax={duration}
+                                x={currentTime}
+                                onChange={handleTimeSliderChange}
+                                styles={{
+                                    track: {
+                                        backgroundColor: "#e3e3e3",
+                                        height: "2px",
+                                    },
+                                    active: {
+                                        backgroundColor: "#333",
+                                        height: "2px",
+                                    },
+                                    thumb: {
+                                        marginTop: "-3px",
+                                        width: "8px",
+                                        height: "8px",
+                                        backgroundColor: "#333",
+                                        borderRadius: 0,
+                                    },
+                                }}
+                            />
+                            <audio
+                             //@ts-ignore
+                                ref={audioRef}
+                                 //@ts-ignore
+                                src={props.data.imageFirst}
+                                 //@ts-ignore
+                                onLoadedData={handleLoadedData}
+                                 //@ts-ignore
+                                onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
+                                onEnded={() => setPlay(false)}
+                            /> */}
+                            <AudioPlayer
+                            // @ts-ignore
+                            ref={audioRef}
+                            autoPlay
+                            src={props.data.imageFirst}
+                            onPlay={e => console.log("onPlay")}
+                            
+                            // other props here
+                        />
+                        </div>
                     </div>
                     <div style={{ width: "20%", marginLeft: "20px" }}>
                         <Meta className="mt-1"

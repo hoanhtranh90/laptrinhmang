@@ -8,8 +8,8 @@ import ChangePassword from '../modules/account/change-password/Index';
 import Follow from '../modules/follow/index';
 import Work from '../modules/work';
 import Register from '../modules/register/Index';
-import Market from '../modules/market';
 import ForgetPass from '../modules/forget-password';
+import Live from '../modules/livestream';
 
 const IndexRoutes = () => {
     return (
@@ -27,8 +27,7 @@ const IndexRoutes = () => {
 
                     {/* follow */}
                     <Route path='follow' element={<PrivateRoute><Follow/></PrivateRoute>} />
-                    <Route path='work' element={<PrivateRoute><Work/></PrivateRoute>} />
-                    <Route path='market' element={<PrivateRoute><Market/></PrivateRoute>} />
+                    <Route path='live' element={<PrivateRoute><Live/></PrivateRoute>} />
 
 
                     <Route path='*' element={<Navigate to="/" />} />
