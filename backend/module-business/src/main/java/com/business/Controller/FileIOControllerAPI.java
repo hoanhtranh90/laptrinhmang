@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 /**
- * @author Nguyen_Toan
+ * @author sangnk
  */
 @RestController
 @RequestMapping("/files")

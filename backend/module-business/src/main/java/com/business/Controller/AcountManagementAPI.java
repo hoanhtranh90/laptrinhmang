@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +34,7 @@ import java.util.List;
 
 /**
  *
- * @author Nguyen_Toan
+ * @author sangnk
  */
 @RestController
 @RequestMapping("/account-managers")
@@ -330,5 +331,24 @@ public class AcountManagementAPI {
                 .build());
     }
 
+    @GetMapping("/generateOtp/{email}")
+    public ResponseEntity<?> generateOTP(@PathVariable("email") String email) throws MessagingException, BadRequestException {
 
+        acountManagement.generateOTP(email);
+
+        return ResponseEntity
+                .ok(ResponseBody.builder().body("OTP has been sent to your email").message(messageSourceVi.getMessageVi("OK002")).build());
+    }
+
+    @RequestMapping(value ="/validateOtp", method = RequestMethod.POST)
+    public ResponseEntity<?> validateOtp(@RequestBody ValidateOtpDTO validateOtpDTO) throws MessagingException, BadRequestException {
+
+        return ResponseEntity.ok(ResponseBody.builder().body(acountManagement.validateOtp(validateOtpDTO)).message(messageSourceVi.getMessageVi("OK002")).build());
+    }
+
+    @RequestMapping(value ="/validateOtpAndChangePass", method = RequestMethod.POST)
+    public ResponseEntity<?> validateOtpAndChangePass(@RequestBody ValidateOtpDTOAndChangePass validateOtpDTO) throws MessagingException, BadRequestException {
+
+        return ResponseEntity.ok(ResponseBody.builder().body(acountManagement.validateOtpAndChangePass(validateOtpDTO)).message(messageSourceVi.getMessageVi("OK002")).build());
+    }
 }

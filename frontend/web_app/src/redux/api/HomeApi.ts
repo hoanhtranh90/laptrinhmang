@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Config } from '../../config/constant';
-import { CommonListQuery, PostResponse, CommentResponse, CommentRequest } from './apiTypes';
+import { CommonListQuery, PostResponse, CommentResponse, CommentRequest, PostDetail, DeletePostRequest } from './apiTypes';
 
 const homeApi = createApi({
     reducerPath: 'homeApi',
@@ -48,6 +48,15 @@ const homeApi = createApi({
                 return response.body;
             },
         }),
+        deletePost: builder.mutation<PostDetail, Partial<DeletePostRequest>>({
+            query: (body) => ({
+                url: `post/delete/${body.postId}`,
+                method: 'DELETE'
+            }),
+            transformResponse: (response: { body: PostDetail }, meta, arg) => {
+                return response.body;
+            },
+        })
 
 
     })
@@ -57,5 +66,6 @@ export default homeApi;
 export const {
     useLazyGetListPostQuery,
     useAddCommentMutation,
-        useLazyGetListCommentQuery
+    useLazyGetListCommentQuery,
+    useDeletePostMutation
 } = homeApi;

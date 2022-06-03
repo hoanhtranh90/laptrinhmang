@@ -1,10 +1,13 @@
 package com.core.mapper;
 
 import com.core.entity.Comment;
+import com.core.entity.Product;
 import com.core.model.CommentResponse;
+import com.core.model.Product.ProductResponseDTO;
 import com.core.model.UserSummary;
 import com.core.model.account.UserRegisterDto;
 
+import com.core.model.user.UserDTO;
 import com.core.repository.UserRepository;
 
 import com.core.entity.User;
@@ -61,4 +64,9 @@ public class MapperObject {
         return commentResponse;
     }
 
+    public ProductResponseDTO convertToProductResponseDTO(Product u) {
+        ProductResponseDTO productResponseDTO = modelMapper.map(u, ProductResponseDTO.class);
+        productResponseDTO.setSeller(modelMapper.map(u.getSeller(), UserDTO.class));
+        return productResponseDTO;
+    }
 }

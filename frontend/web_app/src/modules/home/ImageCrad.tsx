@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { CommentResponse, PostDetail } from '../../redux/api/apiTypes';
 import './assets/css/index.css';
-import { Avatar, Image, Card, Modal, Carousel, Typography, Badge, Divider, Input, Button } from 'antd';
-import { HeartFilled, HeartOutlined, MessageOutlined, ShareAltOutlined } from '@ant-design/icons';
-import { useAddCommentMutation, useLazyGetListCommentQuery } from '../../redux/api/HomeApi';
+import { Avatar, Image, Card, Modal, Carousel, Typography, Badge, Divider, Input, Button, message } from 'antd';
+import { DeleteOutlined, HeartFilled, HeartOutlined, MessageOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { useAddCommentMutation, useDeletePostMutation, useLazyGetListCommentQuery } from '../../redux/api/HomeApi';
 const { Meta } = Card;
 const ImageCard = (props: any) => {
     const [visible, setVisible] = useState(false);
@@ -15,6 +15,7 @@ const ImageCard = (props: any) => {
 
     const [listComment, setListComment] = useState<CommentResponse[]>([]);
     const [getComment] = useLazyGetListCommentQuery();
+    const [deletePostEx] = useDeletePostMutation();
     const [addComment] = useAddCommentMutation();
 
     //set type any
@@ -111,6 +112,19 @@ const ImageCard = (props: any) => {
         // setVisible(true);
         setIsModalVisible(true);
     };
+    const deletePost = () => {
+        console.log(props);
+        let postId = props.data.id;
+        deletePostEx({postId}).unwrap()
+        .then(res => {
+            console.log("res", res);
+            //message
+            message.success("Thành công");
+            window.location.reload();
+        })
+        //reload page
+        // 
+    }
 
     const handleOk = () => {
         setIsModalVisible(false);
@@ -190,7 +204,7 @@ const ImageCard = (props: any) => {
                                     <MessageOutlined style={{ fontSize: "20px" }} />
                                 </Badge>
                             </div>
-                            <ShareAltOutlined style={{ fontSize: "20px" }} />
+                            <DeleteOutlined onClick={deletePost} style={{ fontSize: "20px" }} />
 
                         </div>
                         <hr />

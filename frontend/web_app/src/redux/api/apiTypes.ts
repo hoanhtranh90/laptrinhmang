@@ -139,3 +139,36 @@ export interface ChangeFollowRequest {
     followId: number,
     isFollow: number,
 }
+
+export interface ProductResponseDTO {
+    content: ProductDetail[],
+    totalElements: number,
+}
+
+export interface ProductDetail {
+    productId: number,
+    productName: string,
+    productDescription: string,
+    productPrice: number,
+    productStatus: number,
+    seller: UserDTO,
+    [key: string]: any
+}
+export interface CreateProductDTO {
+    productName: string,
+    productDescription: string,
+    productPrice: number,
+    productStatus: number,
+}
+
+export interface UpdateProductDTO {
+    productId: number,
+    productName: string,
+    productDescription: string,
+    productPrice: number,
+    productStatus: number,
+}
+
+export interface DeletePostRequest {
+    postId: number,
+}
