@@ -174,7 +174,7 @@ const CreatePost = ({ visible, toggleModal, onSuccess }: Props) => {
     return (
         <Modal
             visible={visible}
-            title="Thông tin banner 1"
+            title="Thông tin"
             onCancel={() => hideModalAction()}
             width={800}
             footer={[

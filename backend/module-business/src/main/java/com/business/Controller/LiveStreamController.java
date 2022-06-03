@@ -46,8 +46,8 @@ public class LiveStreamController {
 //        });
 //
 //        System.out.println("Controller exits");
-        String dir = "template/y2mate.com - Nhạc Chill TikTok  Những Bản Nhạc Lofi Chill Nhẹ Nhàng  Nhạc Lofi Buồn Hot Nhất Hiện Nay.mp3";
-        File musicFile = new File(dir);
+//        String dir = "template/y2mate.com - Nhạc Chill TikTok  Những Bản Nhạc Lofi Chill Nhẹ Nhàng  Nhạc Lofi Buồn Hot Nhất Hiện Nay.mp3";
+//        File musicFile = new File(dir);
 
         return sseEmitter;
     }
