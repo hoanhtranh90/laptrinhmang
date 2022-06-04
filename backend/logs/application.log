@@ -560,3 +560,49 @@ java.lang.IllegalStateException: getOutputStream() has already been called for t
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+04/06/2022 09:59:17 INFO  - Starting BusinessApplication using Java 1.8.0_281 on DESKTOP-HENEIFB with PID 6756 (D:\laptrinhmang_cuoiky\backend\module-business\target\classes started by User in D:\laptrinhmang_cuoiky\backend)
+04/06/2022 09:59:17 INFO  - The following profiles are active: dev
+04/06/2022 09:59:23 INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+04/06/2022 09:59:23 INFO  - Finished Spring Data repository scanning in 304 ms. Found 16 JPA repository interfaces.
+04/06/2022 09:59:25 INFO  - Bean 'cacheConfig' of type [com.core.config.CacheConfig$$EnhancerBySpringCGLIB$$a48bc8ef] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+04/06/2022 09:59:26 INFO  - Tomcat initialized with port(s): 19010 (http)
+04/06/2022 09:59:26 INFO  - Starting service [Tomcat]
+04/06/2022 09:59:26 INFO  - Starting Servlet engine: [Apache Tomcat/9.0.53]
+04/06/2022 09:59:26 INFO  - Initializing Spring embedded WebApplicationContext
+04/06/2022 09:59:26 INFO  - Root WebApplicationContext: initialization completed in 9167 ms
+04/06/2022 09:59:27 WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+04/06/2022 09:59:27 INFO  - HikariPool-1 - Starting...
+04/06/2022 09:59:27 INFO  - HikariPool-1 - Start completed.
+04/06/2022 09:59:28 INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+04/06/2022 09:59:28 INFO  - HHH000412: Hibernate ORM core version 5.4.32.Final
+04/06/2022 09:59:28 INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+04/06/2022 09:59:29 INFO  - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+04/06/2022 09:59:34 INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+04/06/2022 09:59:34 INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+04/06/2022 09:59:36 INFO  - readPublicKey: dev_public.key
+04/06/2022 09:59:40 INFO  - Exposing 1 endpoint(s) beneath base path '/actuator'
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/test'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/actuator/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/csrf'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/my/docs'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/v2/api-docs/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/swagger.json'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/configuration/security'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/configuration/ui'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/swagger-resources/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/configuration/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/swagger-ui/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/swagger-ui.html'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/webjars/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/login'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/register'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/generateOtp/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/validateOtp'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/account-managers/validateOtpAndChangePass'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/sse/*'] with []
+04/06/2022 09:59:41 INFO  - Will secure Ant [pattern='/files/downloadFile/**'] with []
+04/06/2022 09:59:41 INFO  - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b133d16, org.springframework.security.web.context.SecurityContextPersistenceFilter@40f6e092, org.springframework.security.web.header.HeaderWriterFilter@53633321, org.springframework.web.filter.CorsFilter@5dbcaae7, org.springframework.security.web.authentication.logout.LogoutFilter@7d32399a, com.business.authencation.JwtAuthenticationFilter@38657ca8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7bc27f7e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@aae69d3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e6e203b, org.springframework.security.web.session.SessionManagementFilter@60157589, org.springframework.security.web.access.ExceptionTranslationFilter@7c03a3f5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@16139b0]
+04/06/2022 09:59:43 INFO  - Tomcat started on port(s): 19010 (http) with context path '/business'
+04/06/2022 09:59:44 INFO  - Started BusinessApplication in 27.702 seconds (JVM running for 31.658)
+04/06/2022 09:59:44 INFO  - Account management already exsit.
+04/06/2022 09:59:46 INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'

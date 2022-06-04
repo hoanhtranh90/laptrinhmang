@@ -51,7 +51,7 @@ const AppHeader = () => {
             </Col>
             <Col>
               <div className='font-size-24'>
-                <Text strong>GRAPHICH</Text>
+                <Text strong>MP3</Text>
               </div>
               
             </Col>
@@ -60,7 +60,7 @@ const AppHeader = () => {
         <Col span={10}>
           <Row justify='end' align='middle'>
             <Space size={48}>
-              <Text className='font-size-18'>Hướng dẫn sử dụng</Text>
+              {/* <Text className='font-size-18'>Hướng dẫn sử dụng</Text> */}
               <Dropdown overlay={menu} trigger={['click']}>
                 <Text className='font-size-18 cursor-pointer'>{user.user.fullName} <DownOutlined /></Text>
               </Dropdown>
